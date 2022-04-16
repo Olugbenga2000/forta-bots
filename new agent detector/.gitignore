@@ -1,0 +1,5 @@
+node_modules
+dist
+forta.config.json
+src/agent1.ts
+src/agent1.spec.ts
