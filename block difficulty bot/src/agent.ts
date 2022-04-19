@@ -5,10 +5,9 @@ import {
   FindingType,
   BlockEvent,
   ethers,
-  getJsonRpcUrl,
+  getEthersProvider,
   Network,
 } from "forta-agent";
-import { MockEthersProvider } from "forta-agent-tools/lib/mock.utils";
 
 type blockDetails = {
   blockNumber: number;
@@ -18,13 +17,13 @@ type blockDetails = {
   };
 };
 
-const getProvider = (): ethers.providers.JsonRpcProvider => new ethers.providers.JsonRpcProvider(getJsonRpcUrl());
+// const getProvider = (): ethers.providers.JsonRpcProvider => new ethers.providers.JsonRpcProvider(getJsonRpcUrl());
 
 const THRESHOLD = 6559585103933;
 
 export function provideAgentCreationHandler(
   threshold: number,
-  provider: ethers.providers.JsonRpcProvider | MockEthersProvider
+  provider: any
 ): HandleBlock {
   return async (blockEvent: BlockEvent): Promise<Finding[]> => {
     const findings: Finding[] = [];
@@ -64,7 +63,7 @@ export function provideAgentCreationHandler(
   };
 }
 
-const handleBlock = provideAgentCreationHandler(THRESHOLD, getProvider());
+const handleBlock = provideAgentCreationHandler(THRESHOLD, getEthersProvider());
 
 export default {
   handleBlock,
